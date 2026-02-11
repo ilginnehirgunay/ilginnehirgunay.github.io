@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name / Architecture</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; /* Monospaced for raw technical feel */
+            background-color: #f4f4f4; /* Concrete grey-white */
+            color: #111;
+            margin: 40px;
+            line-height: 1.4;
+        }
+        header { border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 40px; }
+        h1 { font-size: 1.5em; text-transform: uppercase; letter-spacing: 2px; }
+        .project-list { list-style: none; padding: 0; }
+        .project-item { margin-bottom: 20px; border-left: 4px solid #000; padding-left: 15px; }
+        a { color: #000; text-decoration: none; border-bottom: 1px solid #000; }
+        a:hover { background-color: #000; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Your Name / Portfolio</h1>
+        <p>Architectural Designer. Istanbul.</p>
+    </header>
+
+    <section>
+        <h3>Selected Works</h3>
+        <ul class="project-list">
+            <li class="project-item">
+                <strong>Project 01:</strong> <a href="#">Concrete Study</a> <br>
+                <small>2024 / Residential</small>
+            </li>
+            <li class="project-item">
+                <strong>Project 02:</strong> <a href="#">Steel Pavilion</a> <br>
+                <small>2023 / Public Installation</small>
+            </li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Contact: email@domain.com</p>
+    </footer>
+
+</body>
+</html>
