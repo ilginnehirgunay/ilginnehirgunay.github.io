@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>-ING</title>
-    
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='white'/%3E%3Ctext x='50' y='75' font-family='Arial, sans-serif' font-size='100' text-anchor='middle' fill='black'%3E-%3C/text%3E%3C/svg%3E">
-    
     <style>
-        /* Typography and Background */
         :root {
             --bg-color: #ffffff; 
             --text-color: #000000; 
@@ -35,7 +32,6 @@
             opacity: 0.5;
         }
 
-        /* Top Navigation (Attached to the top of the page) */
         header {
             position: absolute;
             top: 0;
@@ -45,13 +41,12 @@
             pointer-events: none; 
         }
 
-        /* Huge -ING texts - Set strictly to 240px height */
         .huge-ing {
             display: flex;
             align-items: center;
             width: 100%;
-            height: 240px; /* Forced 240px height */
-            font-size: 240px; /* Forced 240px font size */
+            height: 240px; 
+            font-size: 240px; 
             font-weight: 200; 
             letter-spacing: -0.02em;
             line-height: 1; 
@@ -69,10 +64,9 @@
             transform: translateY(-5%); 
         }
 
-        /* Nav links start directly beneath the 240px header, then scroll to stick to top */
         .nav-right {
             position: absolute;
-            top: 240px; /* Starts right below the 240px header */
+            top: 240px; 
             left: 0;
             width: 100%;
             padding: 20px;
@@ -90,16 +84,14 @@
             color: #ffffff;
         }
 
-        /* Class added via JS to pin nav to top */
         .nav-right.fixed {
             position: fixed;
             top: 0;
         }
 
-        /* Sticky Nav -ING */
         .sticky-nav-ing {
             position: fixed;
-            top: 20px; /* Aligns perfectly with the nav right padding */
+            top: 20px; 
             left: 20px;
             font-size: 64px; 
             font-weight: 200;
@@ -118,14 +110,12 @@
             pointer-events: auto;
         }
 
-        /* Main Content */
         main {
-            padding: 320px 20px 0 20px; /* 240px header + 80px gap */
-            width: 100%; /* Spans the entire width to match the footer exactly */
+            padding: 320px 20px 0 20px; 
+            width: 100%; 
             box-sizing: border-box;
         }
 
-        /* Left-aligned Intro Text */
         .intro-text {
             font-size: 64px; 
             font-weight: 200;
@@ -133,13 +123,13 @@
             letter-spacing: -0.02em;
             text-align: left;
             margin-bottom: 80px;
+            margin-top: calc(100vh - 560px);
         }
 
         #intro-ing-word {
             display: inline-block;
         }
 
-        /* 16:9 Project Images */
         .project-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -153,7 +143,7 @@
 
         .project-card img {
             width: 100%;
-            aspect-ratio: 16/9; /* Changed to 16:9 format */
+            aspect-ratio: 16/9; 
             object-fit: cover;
             display: block;
             background-color: #f4f4f4;
@@ -164,14 +154,12 @@
             font-size: 16px; 
         }
 
-        /* Footer mathematically aligns directly below the nav bar -ING */
         .scroll-footer {
-            /* 90.4px aligns exactly below the sticky nav text (20px top + 70.4px line-height) */
             padding: 90.4px 20px 0 20px; 
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            height: calc(100vh - 240px); /* Adjusts perfectly to allow 240px space below for bottom header */
+            height: calc(100vh - 240px); 
             box-sizing: border-box;
             pointer-events: auto; 
             z-index: 95;
@@ -187,7 +175,6 @@
             color: var(--text-color);
         }
 
-        /* Bottom -ING (Now sits fully beneath the footer text) */
         .bottom-nav-left {
             position: relative;
             width: 100%;
@@ -196,7 +183,6 @@
             padding-bottom: 20px;
         }
 
-        /* About Overlay Panel */
         #about-overlay {
             position: fixed;
             top: 0;
@@ -225,7 +211,6 @@
             color: var(--bg-color);
         }
 
-        /* Overlay -ING Icon */
         .overlay-nav-ing {
             position: absolute;
             top: 20px;
@@ -267,12 +252,77 @@
             font-weight: 200;
             line-height: 1.1;
             letter-spacing: -0.02em;
-            font-style: italic; /* Added italic format */
+            font-style: italic; 
+        }
+
+        .overlay-footer-text {
+            font-size: 64px;
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            opacity: 0.5;
         }
 
         @media (max-width: 768px) {
-            .project-grid, .definition-grid {
+            .huge-ing {
+                height: 120px;
+                font-size: 120px;
+                padding: 0 15px;
+            }
+            .nav-right {
+                top: 120px;
+                font-size: 32px;
+                padding: 15px;
+            }
+            .sticky-nav-ing {
+                top: 15px;
+                left: 15px;
+                font-size: 32px;
+            }
+            main {
+                padding: 180px 15px 0 15px;
+            }
+            .intro-text {
+                font-size: 32px;
+                margin-top: calc(100vh - 360px);
+            }
+            .project-grid {
                 grid-template-columns: 1fr;
+            }
+            .scroll-footer {
+                height: calc(100vh - 120px);
+                padding: 55px 15px 0 15px;
+            }
+            .scroll-footer a {
+                font-size: 32px;
+            }
+            .bottom-nav-left {
+                padding-bottom: 15px;
+            }
+            #about-overlay {
+                padding: 80px 15px 20px 15px;
+            }
+            .overlay-nav-ing {
+                top: 15px;
+                left: 15px;
+                font-size: 32px;
+            }
+            .close-btn {
+                top: 15px;
+                right: 15px;
+                font-size: 32px;
+            }
+            .definition-grid {
+                grid-template-columns: 1fr;
+                font-size: 32px;
+                gap: 20px;
+            }
+            .word-title {
+                font-size: 32px;
+                margin-bottom: 5px;
+            }
+            .overlay-footer-text {
+                font-size: 16px;
             }
         }
     </style>
@@ -302,27 +352,22 @@
                 <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+1" alt="Project 1">
                 <div class="project-title">[PROJECT TITLE 1]</div>
             </a>
-            
             <a href="project-2.html" class="project-card">
                 <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+2" alt="Project 2">
                 <div class="project-title">[PROJECT TITLE 2]</div>
             </a>
-
             <a href="project-3.html" class="project-card">
                 <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+3" alt="Project 3">
                 <div class="project-title">[PROJECT TITLE 3]</div>
             </a>
-
             <a href="project-4.html" class="project-card">
                 <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+4" alt="Project 4">
                 <div class="project-title">[PROJECT TITLE 4]</div>
             </a>
-
             <a href="project-5.html" class="project-card">
                 <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+5" alt="Project 5">
                 <div class="project-title">[PROJECT TITLE 5]</div>
             </a>
-
             <a href="project-6.html" class="project-card">
                 <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+6" alt="Project 6">
                 <div class="project-title">[PROJECT TITLE 6]</div>
@@ -357,14 +402,13 @@
             </div>
         </div>
 
-        <div style="font-size: 64px; font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; opacity: 0.5;">
+        <div class="overlay-footer-text">
             Website designed and coded by Ilgın Nehir Günay.<br>
             © -ING 2024. All rights reserved.
         </div>
     </div>
 
     <script>
-        // About Overlay Logic
         const aboutBtn = document.getElementById('about-btn');
         const closeBtn = document.getElementById('close-btn');
         const aboutOverlay = document.getElementById('about-overlay');
@@ -381,7 +425,6 @@
             document.body.style.overflow = ''; 
         });
 
-        // Advanced Sticky/Scroll Logic
         const introText = document.querySelector('.intro-text');
         const stickyNavIng = document.getElementById('sticky-nav-ing');
         const originalIng = document.getElementById('intro-ing-word');
@@ -389,26 +432,23 @@
 
         window.addEventListener('scroll', () => {
             const rect = introText.getBoundingClientRect();
+            const topOffset = window.innerWidth <= 768 ? 15 : 20;
             
-            // 1. Illusion of the -ING detaching and becoming the nav bar
-            // Triggers exactly when rect hits 20px (the sticky nav's exact top position)
-            if (rect.top <= 20) {
+            if (rect.top <= topOffset) {
                 stickyNavIng.classList.add('visible');
-                originalIng.style.opacity = '0'; // Hide original so it doesn't double-render
+                originalIng.style.opacity = '0';
             } else {
                 stickyNavIng.classList.remove('visible');
-                originalIng.style.opacity = '1'; // Restore original when scrolled back up
+                originalIng.style.opacity = '1';
             }
 
-            // 2. Pinning the 'Definition' nav link to the top of the viewport
-            // (It starts 240px down the page natively)
-            if (window.scrollY >= 240) {
+            const stickyPoint = window.innerWidth <= 768 ? 120 : 240;
+            if (window.scrollY >= stickyPoint) {
                 navRight.classList.add('fixed');
             } else {
                 navRight.classList.remove('fixed');
             }
         });
     </script>
-
 </body>
 </html>
