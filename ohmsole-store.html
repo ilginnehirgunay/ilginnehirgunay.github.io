@@ -32,15 +32,6 @@
             opacity: 0.5;
         }
 
-        header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-            pointer-events: none; 
-        }
-
         .huge-ing {
             display: flex;
             align-items: center;
@@ -99,19 +90,13 @@
             letter-spacing: -0.02em;
             margin: 0;
             z-index: 101;
-            opacity: 0; 
-            pointer-events: none;
+            pointer-events: auto;
             mix-blend-mode: difference;
             color: #ffffff;
         }
 
-        .sticky-nav-ing.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
         main {
-            padding: 320px 20px 0 20px; 
+            padding: 90.4px 20px 0 20px; 
             width: 100%; 
             box-sizing: border-box;
         }
@@ -123,23 +108,28 @@
             letter-spacing: -0.02em;
             text-align: left;
             margin-bottom: 80px;
-            margin-top: calc(100vh - 560px);
         }
 
-        #intro-ing-word {
-            display: inline-block;
+        .project-location {
+            font-size: 64px;
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-top: 10px;
         }
 
         .subpage-details {
-            font-size: 16px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
             margin-bottom: 120px;
-            max-width: 800px;
-            line-height: 1.4;
+            max-width: 95%;
         }
 
         .project-images {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
             gap: 15px;
             margin-bottom: 120px;
         }
@@ -149,6 +139,7 @@
             height: auto;
             display: block;
             background-color: #f4f4f4;
+            cursor: pointer; 
         }
 
         .scroll-footer {
@@ -180,6 +171,64 @@
             padding-bottom: 20px;
         }
 
+        #lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 300;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #lightbox.active {
+            display: flex;
+        }
+
+        #lightbox-img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 64px;
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            cursor: pointer;
+            z-index: 301;
+            color: var(--text-color);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 64px;
+            font-weight: 200;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 301;
+            padding: 20px;
+            user-select: none;
+            color: var(--text-color);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
         @media (max-width: 768px) {
             .huge-ing {
                 height: 120px;
@@ -197,11 +246,19 @@
                 font-size: 32px;
             }
             main {
-                padding: 180px 15px 0 15px;
+                padding: 55px 15px 0 15px;
             }
             .intro-text {
                 font-size: 32px;
-                margin-top: calc(100vh - 360px);
+            }
+            .project-location {
+                font-size: 32px;
+            }
+            .subpage-details {
+                font-size: 32px;
+            }
+            .project-images {
+                grid-template-columns: 1fr;
             }
             .scroll-footer {
                 height: calc(100vh - 120px);
@@ -213,38 +270,44 @@
             .bottom-nav-left {
                 padding-bottom: 15px;
             }
+            .lightbox-close, .lightbox-nav {
+                font-size: 32px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="huge-ing">
-            <div class="huge-hyphen"></div>
-            <div class="huge-text">ING</div>
-        </div>
-    </header>
+    <div class="nav-right" id="nav-right"></div>
 
-    <div class="nav-right" id="nav-right">
-        <a href="index.html">Close</a>
-    </div>
-
-    <div id="sticky-nav-ing" class="sticky-nav-ing">-ING</div>
+    <a href="index.html" id="sticky-nav-ing" class="sticky-nav-ing">-ING</a>
 
     <main>
         <div class="intro-text">
-            <span id="intro-ing-word">OhmSole Store</span>
+            OhmSole Store
+            <div class="project-location">Istanbul, 2025</div>
         </div>
         
         <div class="subpage-details">
-            Fashion store designed in 2025.<br>
-            Architecture, interior design, and spatial planning.
+            Commissioned to design and build a 80-square-meter flagship store dedicated to fashion.
         </div>
 
         <div class="project-images">
             <img src="images/ohmsole-general-orthographic-render.webp" alt="OhmSole Store Render 1">
-            <img src="https://via.placeholder.com/1600x900?text=OHMSOLE+IMAGE+2" alt="OhmSole Store Detail">
+            <img src="images/ohmsole-entrance-perspective-render.webp" alt="OhmSole Store Entrance Perspective">
             <img src="https://via.placeholder.com/1600x900?text=OHMSOLE+IMAGE+3" alt="OhmSole Store Interior">
+            <img src="images/ohmsole-general-view-photo.webp" alt="OhmSole Store General View">
+        </div>
+
+        <div class="subpage-details">
+            The spatial intervention is defined by the custom fabrication of raw stainless steel elements, including modular shelving system, clothing rack, and the checkout counter, which act as industrial sculptures within the void.
+        </div>
+
+        <div class="project-images">
+            <img src="images/ohmsole-stainless-steel-stools.webp" alt="OhmSole Store Stainless Steel Stools">
+            <img src="https://via.placeholder.com/1600x900?text=OHMSOLE+IMAGE+6" alt="OhmSole Store Render 4">
+            <img src="https://via.placeholder.com/1600x900?text=OHMSOLE+IMAGE+7" alt="OhmSole Store Detail 2">
+            <img src="https://via.placeholder.com/1600x900?text=OHMSOLE+IMAGE+8" alt="OhmSole Store Detail 3">
         </div>
     </main>
 
@@ -260,30 +323,63 @@
         </div>
     </div>
 
+    <div id="lightbox">
+        <div class="lightbox-close" id="lightbox-close">Close</div>
+        <div class="lightbox-nav lightbox-prev" id="lightbox-prev">←</div>
+        <img id="lightbox-img" src="" alt="Expanded Image">
+        <div class="lightbox-nav lightbox-next" id="lightbox-next">→</div>
+    </div>
+
     <script>
-        const introText = document.querySelector('.intro-text');
-        const stickyNavIng = document.getElementById('sticky-nav-ing');
-        const originalIng = document.getElementById('intro-ing-word');
+        // Scroll Logic
         const navRight = document.getElementById('nav-right');
 
         window.addEventListener('scroll', () => {
-            const rect = introText.getBoundingClientRect();
-            const topOffset = window.innerWidth <= 768 ? 15 : 20;
-            
-            if (rect.top <= topOffset) {
-                stickyNavIng.classList.add('visible');
-                originalIng.style.opacity = '0';
-            } else {
-                stickyNavIng.classList.remove('visible');
-                originalIng.style.opacity = '1';
-            }
-
             const stickyPoint = window.innerWidth <= 768 ? 120 : 240;
             if (window.scrollY >= stickyPoint) {
                 navRight.classList.add('fixed');
             } else {
                 navRight.classList.remove('fixed');
             }
+        });
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const galleryImages = document.querySelectorAll('.project-images img');
+        
+        let currentImageIndex = 0;
+        const imageSources = Array.from(galleryImages).map(img => img.src);
+
+        galleryImages.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                currentImageIndex = index;
+                showLightboxImage();
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function showLightboxImage() {
+            lightboxImg.src = imageSources[currentImageIndex];
+        }
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        lightboxPrev.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
+            showLightboxImage();
+        });
+
+        lightboxNext.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % imageSources.length;
+            showLightboxImage();
         });
     </script>
 </body>
