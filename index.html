@@ -5,189 +5,407 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>-ING</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='white'/%3E%3Ctext x='50' y='75' font-family='Times New Roman, serif' font-size='100' text-anchor='middle' fill='black'%3E-%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='white'/%3E%3Ctext x='50' y='75' font-family='Arial, sans-serif' font-size='100' text-anchor='middle' fill='black'%3E-%3C/text%3E%3C/svg%3E">
     
     <style>
+        /* Typography and Background */
+        :root {
+            --bg-color: #ffffff; 
+            --text-color: #000000; 
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
         body, html {
-            height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
-            color: #000000;
-            font-family: 'Times New Roman', Times, Baskerville, Georgia, serif;
-            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .view {
-            position: absolute;
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .view.active {
-            opacity: 1;
-            pointer-events: auto;
-            z-index: 10;
-        }
-
-        #view-1 h1 {
-            font-size: 48px;
-            font-weight: normal;
-            letter-spacing: -1px;
-            margin-bottom: 60px;
-            line-height: 1;
-        }
-
-        .definition-block {
-            margin-bottom: 50px;
-        }
-
-        .definition-block p {
-            font-size: 20px;
-            line-height: 1.6;
-            color: #333;
-            font-style: italic;
-            font-family: 'Georgia', serif;
-            margin: 0;
-        }
-
-        .word-title {
-            font-style: italic;
-            font-weight: normal;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        #view-2 {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #view-2 p {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 36px;
-            line-height: 1.4;
-            color: #000000;
-            margin: 0 0 40px 0;
-            font-style: normal;
-        }
-
-        #view-2 a {
-            color: #000000;
+        a {
+            color: inherit;
             text-decoration: none;
-            font-style: italic;
             cursor: pointer;
         }
 
-        #view-2 a:hover {
-            opacity: 0.6;
+        a:hover {
+            opacity: 0.5;
+        }
+
+        /* Top Navigation (Attached to the top of the page) */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            pointer-events: none; 
+        }
+
+        /* Huge -ING texts - Set strictly to 240px height */
+        .huge-ing {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 240px; /* Forced 240px height */
+            font-size: 240px; /* Forced 240px font size */
+            font-weight: 200; 
+            letter-spacing: -0.02em;
+            line-height: 1; 
+            margin: 0;
+            padding: 0 20px;
+            box-sizing: border-box;
+            color: var(--text-color); 
+        }
+
+        .huge-hyphen {
+            flex-grow: 1; 
+            height: max(4px, 0.04em); 
+            background-color: currentColor;
+            margin-right: 0.03em;
+            transform: translateY(-5%); 
+        }
+
+        /* Nav links start directly beneath the 240px header, then scroll to stick to top */
+        .nav-right {
+            position: absolute;
+            top: 240px; /* Starts right below the 240px header */
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            font-size: 64px; 
+            font-weight: 200; 
+            letter-spacing: -0.02em; 
+            line-height: 1.1;
+            z-index: 101;
+            pointer-events: auto;
+            mix-blend-mode: difference; 
+            color: #ffffff;
+        }
+
+        /* Class added via JS to pin nav to top */
+        .nav-right.fixed {
+            position: fixed;
+            top: 0;
+        }
+
+        /* Sticky Nav -ING */
+        .sticky-nav-ing {
+            position: fixed;
+            top: 20px; /* Aligns perfectly with the nav right padding */
+            left: 20px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0;
+            z-index: 101;
+            opacity: 0; 
+            pointer-events: none;
+            mix-blend-mode: difference;
+            color: #ffffff;
+        }
+
+        .sticky-nav-ing.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Main Content */
+        main {
+            padding: 320px 20px 0 20px; /* 240px header + 80px gap */
+            width: 100%; /* Spans the entire width to match the footer exactly */
+            box-sizing: border-box;
+        }
+
+        /* Left-aligned Intro Text */
+        .intro-text {
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            text-align: left;
+            margin-bottom: 80px;
+        }
+
+        #intro-ing-word {
+            display: inline-block;
+        }
+
+        /* 16:9 Project Images */
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px; 
+            margin-bottom: 120px; 
+        }
+
+        .project-card {
+            display: block;
+        }
+
+        .project-card img {
+            width: 100%;
+            aspect-ratio: 16/9; /* Changed to 16:9 format */
+            object-fit: cover;
+            display: block;
+            background-color: #f4f4f4;
+        }
+
+        .project-title {
+            margin-top: 10px;
+            font-size: 16px; 
+        }
+
+        /* Footer mathematically aligns directly below the nav bar -ING */
+        .scroll-footer {
+            /* 90.4px aligns exactly below the sticky nav text (20px top + 70.4px line-height) */
+            padding: 90.4px 20px 0 20px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: calc(100vh - 240px); /* Adjusts perfectly to allow 240px space below for bottom header */
+            box-sizing: border-box;
+            pointer-events: auto; 
+            z-index: 95;
+            position: relative;
+        }
+
+        .scroll-footer a {
+            font-size: 64px; 
+            font-weight: 200; 
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        /* Bottom -ING (Now sits fully beneath the footer text) */
+        .bottom-nav-left {
+            position: relative;
+            width: 100%;
+            z-index: 90;
+            pointer-events: none;
+            padding-bottom: 20px;
+        }
+
+        /* About Overlay Panel */
+        #about-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            z-index: 200;
+            padding: 120px 20px 40px 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #about-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #about-overlay a {
+            color: var(--bg-color);
+        }
+
+        /* Overlay -ING Icon */
+        .overlay-nav-ing {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .definition-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .word-title {
+            display: block;
+            margin-bottom: 15px;
+            opacity: 0.5;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-style: italic; /* Added italic format */
         }
 
         @media (max-width: 768px) {
-            #view-1 h1 { font-size: 36px; margin-bottom: 40px; }
-            .definition-block p { font-size: 16px; }
-            #view-2 p { font-size: 24px; margin-bottom: 30px; }
+            .project-grid, .definition-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <header>
+        <div class="huge-ing">
+            <div class="huge-hyphen"></div>
+            <div class="huge-text">ING</div>
+        </div>
+    </header>
+
+    <div class="nav-right" id="nav-right">
+        <a id="about-btn">Definition</a>
+    </div>
+
+    <div id="sticky-nav-ing" class="sticky-nav-ing">-ING</div>
+
+    <main>
+        <div class="intro-text">
+            <span id="intro-ing-word">-ING</span> is a multidisciplinary design collective. Architecture, art, engineering, fashion design, graphic design, industrial design, and type design are our work fields.
+        </div>
+
+        <div class="project-grid">
+            <a href="project-1.html" class="project-card">
+                <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+1" alt="Project 1">
+                <div class="project-title">[PROJECT TITLE 1]</div>
+            </a>
+            
+            <a href="project-2.html" class="project-card">
+                <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+2" alt="Project 2">
+                <div class="project-title">[PROJECT TITLE 2]</div>
+            </a>
+
+            <a href="project-3.html" class="project-card">
+                <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+3" alt="Project 3">
+                <div class="project-title">[PROJECT TITLE 3]</div>
+            </a>
+
+            <a href="project-4.html" class="project-card">
+                <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+4" alt="Project 4">
+                <div class="project-title">[PROJECT TITLE 4]</div>
+            </a>
+
+            <a href="project-5.html" class="project-card">
+                <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+5" alt="Project 5">
+                <div class="project-title">[PROJECT TITLE 5]</div>
+            </a>
+
+            <a href="project-6.html" class="project-card">
+                <img src="https://via.placeholder.com/1600x900?text=ADD+IMAGE+6" alt="Project 6">
+                <div class="project-title">[PROJECT TITLE 6]</div>
+            </a>
+        </div>
+    </main>
+
+    <div class="scroll-footer">
+        <a href="https://www.instagram.com/hyphen.ing" target="_blank">Instagram</a>
+        <a href="https://drive.google.com/file/d/1m1Ecv8h2K-WRHWPJzlCNAsODYGBZ2brA/view?usp=sharing" target="_blank">Portfolio</a>
+    </div>
+
+    <div class="bottom-nav-left">
+        <div class="huge-ing">
+            <div class="huge-hyphen"></div>
+            <div class="huge-text">ING</div>
+        </div>
+    </div>
+
+    <div id="about-overlay">
+        <div class="overlay-nav-ing">-ING</div>
+        <a class="close-btn" id="close-btn">Close</a>
         
-        <div id="view-1" class="view active">
-            <h1>-ING</h1>
-
-            <div class="definition-block">
-                <p>
-                    <span class="word-title">hyphen (noun)</span>
-                    The mark ( - ) used to join two things together to make a new one.
-                </p>
+        <div class="definition-grid">
+            <div>
+                <span class="word-title">hyphen (noun)</span>
+                The mark ( - ) used to join two things together to make a new one.
             </div>
-
-            <div class="definition-block">
-                <p>
-                    <span class="word-title">-ing (suffix)</span>
-                    Referring to an action, process, or material.
-                </p>
+            <div>
+                <span class="word-title">-ing (suffix)</span>
+                Referring to an action, process, or material.
             </div>
         </div>
 
-        <div id="view-2" class="view">
-            <p>
-                <a href="https://www.instagram.com/hyphen.ing" target="_blank">-ING</a> is a multidisciplinary design collective.
-            </p>
-            <p>
-                Architecture, art, engineering, fashion design, graphic design, industrial design, and type design are our work fields.  
-            </p>
-            <p>
-                Founded by <a href="https://www.instagram.com/ilginnehirgunay" target="_blank">Ilgın Nehir Günay</a>.
-            </p>
-            <p>
-                Before he shares his works here, you can preview his <a href="https://drive.google.com/file/d/1m1Ecv8h2K-WRHWPJzlCNAsODYGBZ2brA/view?usp=sharing" target="_blank">portfolio</a>.
-            </p>
+        <div style="font-size: 64px; font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; opacity: 0.5;">
+            Website designed and coded by Ilgın Nehir Günay.<br>
+            © -ING 2024. All rights reserved.
         </div>
-
     </div>
 
     <script>
-        let isOriginalView = true;
-        let isAnimating = false;
-        const view1 = document.getElementById('view-1');
-        const view2 = document.getElementById('view-2');
+        // About Overlay Logic
+        const aboutBtn = document.getElementById('about-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const aboutOverlay = document.getElementById('about-overlay');
 
-        function toggleContent() {
-            if (isAnimating) return;
-            isAnimating = true;
-
-            if (isOriginalView) {
-                view1.classList.remove('active');
-                view2.classList.add('active');
-            } else {
-                view2.classList.remove('active');
-                view1.classList.add('active');
-            }
-
-            isOriginalView = !isOriginalView;
-
-            setTimeout(() => {
-                isAnimating = false;
-            }, 800);
-        }
-
-        document.addEventListener('click', (event) => {
-            if (event.target.closest('a')) {
-                return;
-            }
-            toggleContent();
+        aboutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
         });
 
-        document.addEventListener('wheel', (event) => {
-            if (Math.abs(event.deltaY) > 10) {
-                toggleContent();
-            }
-        }, { passive: true });
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutOverlay.classList.remove('active');
+            document.body.style.overflow = ''; 
+        });
 
-        document.addEventListener('keydown', (event) => {
-            if (event.code === 'Space' || event.code === 'ArrowDown' || event.code === 'ArrowUp') {
-                toggleContent();
+        // Advanced Sticky/Scroll Logic
+        const introText = document.querySelector('.intro-text');
+        const stickyNavIng = document.getElementById('sticky-nav-ing');
+        const originalIng = document.getElementById('intro-ing-word');
+        const navRight = document.getElementById('nav-right');
+
+        window.addEventListener('scroll', () => {
+            const rect = introText.getBoundingClientRect();
+            
+            // 1. Illusion of the -ING detaching and becoming the nav bar
+            // Triggers exactly when rect hits 20px (the sticky nav's exact top position)
+            if (rect.top <= 20) {
+                stickyNavIng.classList.add('visible');
+                originalIng.style.opacity = '0'; // Hide original so it doesn't double-render
+            } else {
+                stickyNavIng.classList.remove('visible');
+                originalIng.style.opacity = '1'; // Restore original when scrolled back up
+            }
+
+            // 2. Pinning the 'Definition' nav link to the top of the viewport
+            // (It starts 240px down the page natively)
+            if (window.scrollY >= 240) {
+                navRight.classList.add('fixed');
+            } else {
+                navRight.classList.remove('fixed');
             }
         });
     </script>
