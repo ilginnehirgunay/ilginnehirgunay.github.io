@@ -1,1 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>-ING | OhmSole Store</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='white'/%3E%3Ctext x='50' y='75' font-family='Arial, sans-serif' font-size='100' text-anchor='middle' fill='black'%3E-%3C/text%3E%3C/svg%3E">
+    <style>
+        :root {
+            --bg-color: #ffffff; 
+            --text-color: #000000; 
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
 
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a:hover {
+            opacity: 0.5;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            pointer-events: none; 
+        }
+
+        .huge-ing {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 240px; 
+            font-size: 240px; 
+            font-weight: 200; 
+            letter-spacing: -0.02em;
+            line-height: 1; 
+            margin: 0;
+            padding: 0 20px;
+            box-sizing: border-box;
+            color: var(--text-color); 
+        }
+
+        .huge-hyphen {
+            flex-grow: 1; 
+            height: max(4px, 0.04em); 
+            background-color: currentColor;
+            margin-right: 0.03em;
+            transform: translateY(-5%); 
+        }
+
+        .nav-right {
+            position: absolute;
+            top: 240px; 
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            font-size: 64px; 
+            font-weight: 200; 
+            letter-spacing: -0.02em; 
+            line-height: 1.1;
+            z-index: 101;
+            pointer-events: auto;
+            mix-blend-mode: difference; 
+            color: #ffffff;
+        }
+
+        .nav-right.fixed {
+            position: fixed;
+            top: 0;
+        }
+
+        .sticky-nav-ing {
+            position: fixed;
+            top: 20px; 
+            left: 20px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0;
+            z-index: 101;
+            opacity: 0; 
+            pointer-events: none;
+            mix-blend-mode: difference;
+            color: #ffffff;
+        }
+
+        .sticky-nav-ing.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        main {
+            padding: 320px 20px 0 20px; 
+            width: 100%; 
+            box-sizing: border-box;
+        }
+
+        .intro-text {
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            text-align: left;
+            margin-bottom: 80px;
+            margin-top: calc(100vh - 560px);
+        }
+
+        #intro-ing-word {
+            display: inline-block;
+        }
+
+        .subpage-details {
+            font-size: 16px;
+            margin-bottom: 120px;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+
+        .project-images {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 120px;
+        }
+
+        .project-images img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #f4f4f4;
+        }
+
+        .scroll-footer {
+            padding: 90.4px 20px 0 20px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: calc(100vh - 240px); 
+            box-sizing: border-box;
+            pointer-events: auto; 
+            z-index: 95;
+            position: relative;
+        }
+
+        .scroll-footer a {
+            font-size: 64px; 
+            font-weight: 200; 
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .bottom-nav-left {
+            position: relative;
+            width: 100%;
+            z-index: 90;
+            pointer-events: none;
+            padding-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .huge-ing {
+                height: 120px;
+                font-size: 120px;
+                padding: 0 15px;
+            }
+            .nav-right {
+                top: 120px;
+                font-size: 32px;
+                padding: 15px;
+            }
+            .sticky-nav-ing {
+                top: 15px;
+                left: 15px;
+                font-size: 32px;
+            }
+            main {
+                padding: 180px 15px 0 15px;
+            }
+            .intro-text {
+                font-size: 32px;
+                margin-top: calc(100vh - 360px);
+            }
+            .scroll-footer {
+                height: calc(100vh - 120px);
+                padding: 55px 15px 0 15px;
+            }
+            .scroll-footer a {
+                font-size: 32px;
+            }
+            .bottom-nav-left {
+                padding-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="huge-ing">
+            <div class="huge-hyphen"></div>
+            <div class="huge-text">ING</div>
+        </div>
+    </header>
+
+    <div class="nav-right" id="nav-right">
+        <a href="index.html">Close</a>
+    </div>
+
+    <div id="sticky-nav-ing" class="sticky-nav-ing">-ING</div>
+
+    <main>
+        <div class="intro-text">
+            <span id="intro-ing-word">OhmSole Store</span>
+        </div>
+        
+        <div class="subpage-details">
+            Fashion store designed in 2025.<br>
+            Architecture, interior design, and spatial planning.
+        </div>
+
+        <div class="project-images">
+            <img src="images/ohmsole-general-orthographic-render.webp" alt="OhmSole Store Render 1">
+            <img src="https://via.placeholder.com/1600x900?text=OHMSOLE+IMAGE+2" alt="OhmSole Store Detail">
+            <img src="https://via.placeholder.com/1600x900?text=OHMSOLE+IMAGE+3" alt="OhmSole Store Interior">
+        </div>
+    </main>
+
+    <div class="scroll-footer">
+        <a href="https://www.instagram.com/hyphen.ing" target="_blank">Instagram</a>
+        <a href="https://drive.google.com/file/d/1m1Ecv8h2K-WRHWPJzlCNAsODYGBZ2brA/view?usp=sharing" target="_blank">Portfolio</a>
+    </div>
+
+    <div class="bottom-nav-left">
+        <div class="huge-ing">
+            <div class="huge-hyphen"></div>
+            <div class="huge-text">ING</div>
+        </div>
+    </div>
+
+    <script>
+        const introText = document.querySelector('.intro-text');
+        const stickyNavIng = document.getElementById('sticky-nav-ing');
+        const originalIng = document.getElementById('intro-ing-word');
+        const navRight = document.getElementById('nav-right');
+
+        window.addEventListener('scroll', () => {
+            const rect = introText.getBoundingClientRect();
+            const topOffset = window.innerWidth <= 768 ? 15 : 20;
+            
+            if (rect.top <= topOffset) {
+                stickyNavIng.classList.add('visible');
+                originalIng.style.opacity = '0';
+            } else {
+                stickyNavIng.classList.remove('visible');
+                originalIng.style.opacity = '1';
+            }
+
+            const stickyPoint = window.innerWidth <= 768 ? 120 : 240;
+            if (window.scrollY >= stickyPoint) {
+                navRight.classList.add('fixed');
+            } else {
+                navRight.classList.remove('fixed');
+            }
+        });
+    </script>
+</body>
+</html>
