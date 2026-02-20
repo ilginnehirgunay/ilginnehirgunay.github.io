@@ -96,7 +96,7 @@
         }
 
         main {
-            padding: 90.4px 20px 0 20px; 
+            padding: 105px 20px 0 20px; 
             width: 100%; 
             box-sizing: border-box;
         }
@@ -143,7 +143,7 @@
         }
 
         .scroll-footer {
-            padding: 90.4px 20px 0 20px; 
+            padding: 105px 20px 0 20px; 
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -246,7 +246,7 @@
                 font-size: 32px;
             }
             main {
-                padding: 55px 15px 0 15px;
+                padding: 65px 15px 0 15px; 
             }
             .intro-text {
                 font-size: 32px;
@@ -258,11 +258,11 @@
                 font-size: 32px;
             }
             .project-images {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; 
             }
             .scroll-footer {
                 height: calc(100vh - 120px);
-                padding: 55px 15px 0 15px;
+                padding: 65px 15px 0 15px;
             }
             .scroll-footer a {
                 font-size: 32px;
@@ -331,7 +331,6 @@
     </div>
 
     <script>
-        // Scroll Logic
         const navRight = document.getElementById('nav-right');
 
         window.addEventListener('scroll', () => {
@@ -343,7 +342,6 @@
             }
         });
 
-        // Lightbox Logic
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxClose = document.getElementById('lightbox-close');
@@ -359,7 +357,7 @@
                 currentImageIndex = index;
                 showLightboxImage();
                 lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden'; 
             });
         });
 
@@ -369,7 +367,7 @@
 
         lightboxClose.addEventListener('click', () => {
             lightbox.classList.remove('active');
-            document.body.style.overflow = '';
+            document.body.style.overflow = ''; 
         });
 
         lightboxPrev.addEventListener('click', () => {
