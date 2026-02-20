@@ -263,6 +263,50 @@
             opacity: 0.5;
         }
 
+        @media (max-width: 1024px) {
+            .huge-ing {
+                height: 180px;
+                font-size: 180px;
+            }
+            .nav-right {
+                top: 180px;
+                font-size: 48px;
+            }
+            .sticky-nav-ing {
+                font-size: 48px;
+            }
+            main {
+                padding: 240px 20px 0 20px;
+            }
+            .intro-text {
+                font-size: 48px;
+                margin-top: calc(100vh - 420px);
+            }
+            .scroll-footer {
+                height: calc(100vh - 180px);
+                padding: 85px 20px 0 20px;
+            }
+            .scroll-footer a {
+                font-size: 48px;
+            }
+            .overlay-nav-ing {
+                font-size: 48px;
+            }
+            .close-btn {
+                font-size: 48px;
+            }
+            .definition-grid {
+                font-size: 48px;
+                gap: 30px;
+            }
+            .word-title {
+                font-size: 48px;
+            }
+            .overlay-footer-text {
+                font-size: 32px;
+            }
+        }
+
         @media (max-width: 768px) {
             .huge-ing {
                 height: 120px;
@@ -337,14 +381,15 @@
     </header>
 
     <div class="nav-right" id="nav-right">
-        <a id="about-btn">Definition</a>
+        <a id="about-btn" data-en="Definition" data-tr="Tanım">Definition</a>
+        <a id="lang-btn">Türkçe</a>
     </div>
 
     <div id="sticky-nav-ing" class="sticky-nav-ing">-ING</div>
 
     <main>
         <div class="intro-text">
-            <span id="intro-ing-word">-ING</span> is a multidisciplinary design collective. Architecture, art, engineering, fashion design, graphic design, industrial design, and type design are our work fields.
+            <span id="intro-ing-word">-ING</span> <span data-en="is a multidisciplinary design collective. Architecture, art, engineering, fashion design, graphic design, industrial design, and type design are our work fields." data-tr="çok disiplinli bir tasarım kolektifidir. Çalışma alanlarımız, mimarlık, sanat, mühendislik, moda tasarım, grafik tasarım, endüstriyel tasarım ve tipografi tasarımından oluşur.">is a multidisciplinary design collective. Architecture, art, engineering, fashion design, graphic design, industrial design, and type design are our work fields.</span>
         </div>
 
         <div class="project-grid">
@@ -389,20 +434,20 @@
 
     <div id="about-overlay">
         <div class="overlay-nav-ing">-ING</div>
-        <a class="close-btn" id="close-btn">Close</a>
+        <a class="close-btn" id="close-btn" data-en="Close" data-tr="Kapat">Close</a>
         
         <div class="definition-grid">
             <div>
-                <span class="word-title">hyphen (noun)</span>
-                The mark ( - ) used to join two things together to make a new one.
+                <span class="word-title" data-en="hyphen (noun)" data-tr="tire (isim)">hyphen (noun)</span>
+                <span data-en="The mark ( - ) used to join two things together to make a new one." data-tr="İki şeyi birleştirip yeni bir şey oluşturmak için kullanılan işaret ( - ).">The mark ( - ) used to join two things together to make a new one.</span>
             </div>
             <div>
-                <span class="word-title">-ing (suffix)</span>
-                Referring to an action, process, or material.
+                <span class="word-title" data-en="-ing (suffix)" data-tr="-ing (sonek)">-ing (suffix)</span>
+                <span data-en="Referring to an action, process, or material." data-tr="Bir eylemi, süreci veya materyali ifade eder.">Referring to an action, process, or material.</span>
             </div>
         </div>
 
-        <div class="overlay-footer-text">
+        <div class="overlay-footer-text" data-en="Website designed and coded by Ilgın Nehir Günay.<br>© -ING 2024. All rights reserved." data-tr="Bu internet sitesinin tasarımı ve kodlaması, Ilgın Nehir Günay tarafından yapıldı.<br>© -ING 2024. Tüm hakları saklıdır.">
             Website designed and coded by Ilgın Nehir Günay.<br>
             © -ING 2024. All rights reserved.
         </div>
@@ -442,13 +487,34 @@
                 originalIng.style.opacity = '1';
             }
 
-            const stickyPoint = window.innerWidth <= 768 ? 120 : 240;
+            const stickyPoint = window.innerWidth <= 768 ? 120 : (window.innerWidth <= 1024 ? 180 : 240);
             if (window.scrollY >= stickyPoint) {
                 navRight.classList.add('fixed');
             } else {
                 navRight.classList.remove('fixed');
             }
         });
+
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+        const langBtn = document.getElementById('lang-btn');
+        const translatableElements = document.querySelectorAll('[data-tr]');
+
+        function applyLang() {
+            langBtn.textContent = currentLang === 'en' ? 'Türkçe' : 'English';
+            translatableElements.forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        if(langBtn) {
+            applyLang();
+            langBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentLang = currentLang === 'en' ? 'tr' : 'en';
+                localStorage.setItem('siteLang', currentLang);
+                applyLang();
+            });
+        }
     </script>
 </body>
 </html>
