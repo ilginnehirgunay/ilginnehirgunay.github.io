@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>-ING | OhmSole Store</title>
+    <title>-ING</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='white'/%3E%3Ctext x='50' y='75' font-family='Arial, sans-serif' font-size='100' text-anchor='middle' fill='black'%3E-%3C/text%3E%3C/svg%3E">
     <style>
         :root {
@@ -30,6 +30,15 @@
 
         a:hover {
             opacity: 0.5;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            pointer-events: none; 
         }
 
         .huge-ing {
@@ -68,7 +77,7 @@
             font-size: 64px; 
             font-weight: 200; 
             letter-spacing: -0.02em; 
-            line-height: 1.1;
+            line-height: 1.1; 
             z-index: 101;
             pointer-events: auto;
             mix-blend-mode: difference; 
@@ -86,17 +95,23 @@
             left: 20px;
             font-size: 64px; 
             font-weight: 200;
-            line-height: 1.1;
+            line-height: 1.1; 
             letter-spacing: -0.02em;
             margin: 0;
             z-index: 101;
-            pointer-events: auto;
+            opacity: 0; 
+            pointer-events: none;
             mix-blend-mode: difference;
             color: #ffffff;
         }
 
+        .sticky-nav-ing.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         main {
-            padding: 84px 20px 0 20px; 
+            padding: 320px 20px 0 20px; 
             width: 100%; 
             box-sizing: border-box;
         }
@@ -104,41 +119,39 @@
         .intro-text {
             font-size: 64px; 
             font-weight: 200;
-            line-height: 1;
+            line-height: 1.1; 
             letter-spacing: -0.02em;
             text-align: left;
             margin-bottom: 80px;
+            margin-top: calc(100vh - 560px);
         }
 
-        .project-location {
-            font-size: 64px;
-            font-weight: 200;
-            line-height: 1;
-            letter-spacing: -0.02em;
+        #intro-ing-word {
+            display: inline-block;
         }
 
-        .subpage-details {
-            font-size: 64px; 
-            font-weight: 200;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 120px;
-            max-width: 95%;
-        }
-
-        .project-images {
+        .project-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; 
-            gap: 15px;
-            margin-bottom: 120px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px; 
+            margin-bottom: 120px; 
         }
 
-        .project-images img {
+        .project-card {
+            display: block;
+        }
+
+        .project-card img {
             width: 100%;
-            height: auto;
+            aspect-ratio: 16/9; 
+            object-fit: cover;
             display: block;
             background-color: #f4f4f4;
-            cursor: pointer; 
+        }
+
+        .project-title {
+            margin-top: 10px;
+            font-size: 16px; 
         }
 
         .scroll-footer {
@@ -170,62 +183,84 @@
             padding-bottom: 20px;
         }
 
-        #lightbox {
+        #about-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background-color: var(--bg-color);
-            z-index: 300;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #lightbox.active {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            z-index: 200;
+            padding: 120px 20px 40px 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
             display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        #lightbox-img {
-            max-width: 90vw;
-            max-height: 90vh;
-            object-fit: contain;
+        #about-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .lightbox-close {
+        #about-overlay a {
+            color: var(--bg-color);
+        }
+
+        .overlay-nav-ing {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .close-btn {
             position: absolute;
             top: 20px;
             right: 20px;
+            cursor: pointer;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .definition-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .word-title {
+            display: block;
+            margin-bottom: 15px;
+            opacity: 0.5;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-style: italic; 
+        }
+
+        .overlay-footer-text {
             font-size: 64px;
             font-weight: 200;
             line-height: 1.1;
             letter-spacing: -0.02em;
-            cursor: pointer;
-            z-index: 301;
-            color: var(--text-color);
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 64px;
-            font-weight: 200;
-            line-height: 1;
-            cursor: pointer;
-            z-index: 301;
-            padding: 20px;
-            user-select: none;
-            color: var(--text-color);
-        }
-
-        .lightbox-prev {
-            left: 20px;
-        }
-
-        .lightbox-next {
-            right: 20px;
+            opacity: 0.5;
         }
 
         @media (max-width: 768px) {
@@ -245,19 +280,14 @@
                 font-size: 32px;
             }
             main {
-                padding: 47px 15px 0 15px; 
+                padding: 180px 15px 0 15px;
             }
             .intro-text {
                 font-size: 32px;
+                margin-top: calc(100vh - 360px);
             }
-            .project-location {
-                font-size: 32px;
-            }
-            .subpage-details {
-                font-size: 32px;
-            }
-            .project-images {
-                grid-template-columns: 1fr; 
+            .project-grid {
+                grid-template-columns: 1fr;
             }
             .scroll-footer {
                 height: calc(100vh - 120px);
@@ -269,63 +299,79 @@
             .bottom-nav-left {
                 padding-bottom: 15px;
             }
-            .lightbox-close, .lightbox-nav {
+            #about-overlay {
+                padding: 80px 15px 20px 15px;
+            }
+            .overlay-nav-ing {
+                top: 15px;
+                left: 15px;
                 font-size: 32px;
+            }
+            .close-btn {
+                top: 15px;
+                right: 15px;
+                font-size: 32px;
+            }
+            .definition-grid {
+                grid-template-columns: 1fr;
+                font-size: 32px;
+                gap: 20px;
+            }
+            .word-title {
+                font-size: 32px;
+                margin-bottom: 5px;
+            }
+            .overlay-footer-text {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="nav-right" id="nav-right"></div>
+    <header>
+        <div class="huge-ing">
+            <div class="huge-hyphen"></div>
+            <div class="huge-text">ING</div>
+        </div>
+    </header>
 
-    <a href="/" id="sticky-nav-ing" class="sticky-nav-ing">-ING</a>
+    <div class="nav-right" id="nav-right">
+        <a id="about-btn">Definition</a>
+    </div>
+
+    <div id="sticky-nav-ing" class="sticky-nav-ing">-ING</div>
 
     <main>
         <div class="intro-text">
-            OhmSole Store
-            <div class="project-location">Istanbul, 2025</div>
-        </div>
-        
-        <div class="subpage-details">
-            Commissioned to design and build a 80-square-meter flagship store dedicated to fashion.
+            <span id="intro-ing-word">-ING</span> is a multidisciplinary design collective. Architecture, art, engineering, fashion design, graphic design, industrial design, and type design are our work fields.
         </div>
 
-        <div class="project-images">
-            <img src="images/ohmsole-general-orthographic-render.webp" alt="OhmSole Store Render 1">
-            <img src="images/ohmsole-ground-floor-plan-drawing.webp" alt="OhmSole Ground Floor Plan">
-            <img src="images/ohmsole-entrance-installation-diagram.webp" alt="OhmSole Entrance Installation">
-            <img src="images/ohmsole-general-view.webp" alt="OhmSole Store General View">
-        </div>
-
-        <div class="project-images" style="grid-template-columns: 1fr;">
-            <img src="images/ohmsole-aa-section-drawing.webp" alt="OhmSole AA Section Drawing">
-        </div>
-
-        <div class="subpage-details">
-            The layout was meticulously planned to optimize flow between the retail floor, fitting area, and a dedicated guest lounge, creating an immersive, gallery-like atmosphere that prioritizes the product.
-        </div>
-
-        <div class="project-images">
-            <img src="images/ohmsole-electrical-installation-detail.webp" alt="OhmSole Electrical Installation Detail">
-            <img src="images/ohmsole-stainless-steel-stools.webp" alt="OhmSole Stainless Steel Stools">
-            <img src="images/ohmsole-rearside-installation-diagram.webp" alt="OhmSole Rearside Installation">
-            <img src="images/ohmsole-rearside.webp" alt="OhmSole Rearside">
-        </div>
-
-        <div class="project-images" style="grid-template-columns: 1fr;">
-            <img src="images/ohmsole-bb-section-drawing.webp" alt="OhmSole BB Section Drawing">
-        </div>
-
-        <div class="subpage-details">
-            The spatial intervention is defined by the custom fabrication of raw stainless steel elements, including modular shelving system, clothing rack, and the checkout counter, which act as industrial sculptures within the void.
-        </div>
-
-        <div class="project-images">
-            <img src="images/ohmsole-shoeshelf-lighting-demo.webp" alt="OhmSole Shoeshelf Lighting Demo">
-            <img src="images/ohmsole-front-close-up.webp" alt="OhmSole Front Close Up">
-            <img src="images/ohmsole-checkout-counter-close-up.webp" alt="OhmSole Checkout Counter Close Up">
-            <img src="images/ohmsole-frontside.webp" alt="OhmSole Frontside">
+        <div class="project-grid">
+            <a href="ohmsole-store" class="project-card">
+                <img src="images/ohmsole-general-orthographic-render.webp" alt="OhmSole Store">
+                <div class="project-title">OhmSole Store</div>
+            </a>
+            <a href="project-2" class="project-card">
+                <img src="https://via.placeholder.com/640x360?text=ADD+IMAGE+2" alt="Project 2">
+                <div class="project-title">[PROJECT TITLE 2]</div>
+            </a>
+            <a href="project-3" class="project-card">
+                <img src="https://via.placeholder.com/640x360?text=ADD+IMAGE+3" alt="Project 3">
+                <div class="project-title">[PROJECT TITLE 3]</div>
+            </a>
+            <a href="project-4" class="project-card">
+                <img src="https://via.placeholder.com/640x360?text=ADD+IMAGE+4" alt="Project 4">
+                <div class="project-title">[PROJECT TITLE 4]</div>
+            </a>
+            <a href="project-5" class="project-card">
+                <img src="https://via.placeholder.com/640x360?text=ADD+IMAGE+5" alt="Project 5">
+                <div class="project-title">[PROJECT TITLE 5]</div>
+            </a>
+            <a href="project-6" class="project-card">
+                <img src="https://via.placeholder.com/640x360?text=ADD+IMAGE+6" alt="Project 6">
+                <div class="project-title">[PROJECT TITLE 6]</div>
+            </a>
         </div>
     </main>
 
@@ -341,61 +387,67 @@
         </div>
     </div>
 
-    <div id="lightbox">
-        <div class="lightbox-close" id="lightbox-close">Close</div>
-        <div class="lightbox-nav lightbox-prev" id="lightbox-prev">←</div>
-        <img id="lightbox-img" src="" alt="Expanded Image">
-        <div class="lightbox-nav lightbox-next" id="lightbox-next">→</div>
+    <div id="about-overlay">
+        <div class="overlay-nav-ing">-ING</div>
+        <a class="close-btn" id="close-btn">Close</a>
+        
+        <div class="definition-grid">
+            <div>
+                <span class="word-title">hyphen (noun)</span>
+                The mark ( - ) used to join two things together to make a new one.
+            </div>
+            <div>
+                <span class="word-title">-ing (suffix)</span>
+                Referring to an action, process, or material.
+            </div>
+        </div>
+
+        <div class="overlay-footer-text">
+            Website designed and coded by Ilgın Nehir Günay.<br>
+            © -ING 2024. All rights reserved.
+        </div>
     </div>
 
     <script>
+        const aboutBtn = document.getElementById('about-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const aboutOverlay = document.getElementById('about-overlay');
+
+        aboutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        });
+
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutOverlay.classList.remove('active');
+            document.body.style.overflow = ''; 
+        });
+
+        const introText = document.querySelector('.intro-text');
+        const stickyNavIng = document.getElementById('sticky-nav-ing');
+        const originalIng = document.getElementById('intro-ing-word');
         const navRight = document.getElementById('nav-right');
 
         window.addEventListener('scroll', () => {
+            const rect = introText.getBoundingClientRect();
+            const topOffset = window.innerWidth <= 768 ? 15 : 20;
+            
+            if (rect.top <= topOffset) {
+                stickyNavIng.classList.add('visible');
+                originalIng.style.opacity = '0';
+            } else {
+                stickyNavIng.classList.remove('visible');
+                originalIng.style.opacity = '1';
+            }
+
             const stickyPoint = window.innerWidth <= 768 ? 120 : 240;
             if (window.scrollY >= stickyPoint) {
                 navRight.classList.add('fixed');
             } else {
                 navRight.classList.remove('fixed');
             }
-        });
-
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxClose = document.getElementById('lightbox-close');
-        const lightboxPrev = document.getElementById('lightbox-prev');
-        const lightboxNext = document.getElementById('lightbox-next');
-        const galleryImages = document.querySelectorAll('.project-images img');
-        
-        let currentImageIndex = 0;
-        const imageSources = Array.from(galleryImages).map(img => img.src);
-
-        galleryImages.forEach((img, index) => {
-            img.addEventListener('click', () => {
-                currentImageIndex = index;
-                showLightboxImage();
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden'; 
-            });
-        });
-
-        function showLightboxImage() {
-            lightboxImg.src = imageSources[currentImageIndex];
-        }
-
-        lightboxClose.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = ''; 
-        });
-
-        lightboxPrev.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
-            showLightboxImage();
-        });
-
-        lightboxNext.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex + 1) % imageSources.length;
-            showLightboxImage();
         });
     </script>
 </body>
