@@ -56,8 +56,8 @@
         }
 
         .nav-right {
-            position: absolute;
-            top: 240px; 
+            position: fixed; 
+            top: 0; 
             left: 0;
             width: 100%;
             padding: 20px;
@@ -73,11 +73,6 @@
             pointer-events: auto;
             mix-blend-mode: difference; 
             color: #ffffff;
-        }
-
-        .nav-right.fixed {
-            position: fixed;
-            top: 0;
         }
 
         .sticky-nav-ing {
@@ -228,6 +223,140 @@
             right: 20px;
         }
 
+        #about-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            z-index: 200;
+            padding: 120px 20px 40px 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #about-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #about-overlay a {
+            color: var(--bg-color);
+        }
+
+        .overlay-nav-ing {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .definition-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .word-title {
+            display: block;
+            margin-bottom: 15px;
+            opacity: 0.5;
+            font-size: 64px; 
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-style: italic; 
+        }
+
+        .overlay-footer-text {
+            font-size: 64px;
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 1024px) {
+            .huge-ing {
+                height: 180px;
+                font-size: 180px;
+            }
+            .nav-right {
+                font-size: 48px;
+            }
+            .sticky-nav-ing {
+                font-size: 48px;
+            }
+            main {
+                padding: 68px 20px 0 20px;
+            }
+            .intro-text {
+                font-size: 48px;
+            }
+            .project-location {
+                font-size: 48px;
+            }
+            .subpage-details {
+                font-size: 48px;
+            }
+            .scroll-footer {
+                height: calc(100vh - 180px);
+                padding: 85px 20px 0 20px;
+            }
+            .scroll-footer a {
+                font-size: 48px;
+            }
+            .lightbox-close {
+                font-size: 48px;
+            }
+            .lightbox-nav {
+                font-size: 48px;
+            }
+            .overlay-nav-ing {
+                font-size: 48px;
+            }
+            .close-btn {
+                font-size: 48px;
+            }
+            .definition-grid {
+                font-size: 48px;
+                gap: 30px;
+            }
+            .word-title {
+                font-size: 48px;
+            }
+            .overlay-footer-text {
+                font-size: 32px;
+            }
+        }
+
         @media (max-width: 768px) {
             .huge-ing {
                 height: 120px;
@@ -235,7 +364,7 @@
                 padding: 0 15px;
             }
             .nav-right {
-                top: 120px;
+                top: 0; 
                 font-size: 32px;
                 padding: 15px;
             }
@@ -272,22 +401,50 @@
             .lightbox-close, .lightbox-nav {
                 font-size: 32px;
             }
+            #about-overlay {
+                padding: 80px 15px 20px 15px;
+            }
+            .overlay-nav-ing {
+                top: 15px;
+                left: 15px;
+                font-size: 32px;
+            }
+            .close-btn {
+                top: 15px;
+                right: 15px;
+                font-size: 32px;
+            }
+            .definition-grid {
+                grid-template-columns: 1fr;
+                font-size: 32px;
+                gap: 20px;
+            }
+            .word-title {
+                font-size: 32px;
+                margin-bottom: 5px;
+            }
+            .overlay-footer-text {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="nav-right" id="nav-right"></div>
+    <div class="nav-right" id="nav-right">
+        <a id="about-btn" data-en="Definition" data-tr="Tanım">Definition</a>
+        <a id="lang-btn">Türkçe</a>
+    </div>
 
     <a href="/" id="sticky-nav-ing" class="sticky-nav-ing">-ING</a>
 
     <main>
         <div class="intro-text">
             OhmSole Store
-            <div class="project-location">Istanbul, 2025</div>
+            <div class="project-location" data-en="Istanbul, 2025" data-tr="İstanbul, 2025">Istanbul, 2025</div>
         </div>
         
-        <div class="subpage-details">
+        <div class="subpage-details" data-en="Commissioned to design and build a 80-square-meter flagship store dedicated to fashion." data-tr="Moda odaklı 80 metrekarelik bir mağaza tasarladık ve inşa ettik.">
             Commissioned to design and build a 80-square-meter flagship store dedicated to fashion.
         </div>
 
@@ -302,7 +459,7 @@
             <img src="images/ohmsole-aa-section-drawing.webp" alt="OhmSole AA Section Drawing">
         </div>
 
-        <div class="subpage-details">
+        <div class="subpage-details" data-en="The layout was meticulously planned to optimize flow between the retail floor, fitting area, and a dedicated guest lounge, creating an immersive, gallery-like atmosphere that prioritizes the product." data-tr="Yerleşim planı; ana satış alanı, ürün deneme alanı ve misafir dinlenme alanı arasındaki akışı optimize edecek şekilde titizlikle planlanıp, ürünleri ön plana çıkaran sürükleyici, sanat galerisi benzeri bir atmosfer yaratmak üzere tasarlandı.">
             The layout was meticulously planned to optimize flow between the retail floor, fitting area, and a dedicated guest lounge, creating an immersive, gallery-like atmosphere that prioritizes the product.
         </div>
 
@@ -317,7 +474,7 @@
             <img src="images/ohmsole-bb-section-drawing.webp" alt="OhmSole BB Section Drawing">
         </div>
 
-        <div class="subpage-details">
+        <div class="subpage-details" data-en="The spatial intervention is defined by the custom fabrication of raw stainless steel elements, including modular shelving system, clothing rack, and the checkout counter, which act as industrial sculptures within the void." data-tr="Mekansal dokunuşumuz; mağaza içinde endüstriyel yapılar olarak işlev gören modüler raf sistemleri, giysi askılığı, kasa bankosu ve deneme tabureleri gibi ham paslanmaz çelik elemanların özel imalat ve hassas işçilikleri ile tanımlanmaktadır.">
             The spatial intervention is defined by the custom fabrication of raw stainless steel elements, including modular shelving system, clothing rack, and the checkout counter, which act as industrial sculptures within the void.
         </div>
 
@@ -342,23 +499,62 @@
     </div>
 
     <div id="lightbox">
-        <div class="lightbox-close" id="lightbox-close">Close</div>
+        <div class="lightbox-close" id="lightbox-close" data-en="Close" data-tr="Kapat">Close</div>
         <div class="lightbox-nav lightbox-prev" id="lightbox-prev">←</div>
         <img id="lightbox-img" src="" alt="Expanded Image">
         <div class="lightbox-nav lightbox-next" id="lightbox-next">→</div>
+    </div>
+
+    <div id="about-overlay">
+        <div class="overlay-nav-ing">-ING</div>
+        <a class="close-btn" id="close-btn" data-en="Close" data-tr="Kapat">Close</a>
+        
+        <div class="definition-grid">
+            <div>
+                <span class="word-title" data-en="hyphen (noun)" data-tr="tire (isim)">hyphen (noun)</span>
+                <span data-en="The mark ( - ) used to join two things together to make a new one." data-tr="İki şeyi birleştirip yeni bir şey oluşturmak için kullanılan işaret ( - ).">The mark ( - ) used to join two things together to make a new one.</span>
+            </div>
+            <div>
+                <span class="word-title" data-en="-ing (suffix)" data-tr="-ing (sonek)">-ing (suffix)</span>
+                <span data-en="Referring to an action, process, or material." data-tr="Bir eylemi, süreci veya materyali ifade eder.">Referring to an action, process, or material.</span>
+            </div>
+        </div>
+
+        <div class="overlay-footer-text" data-en="Website designed and coded by Ilgın Nehir Günay.<br>© -ING 2024. All rights reserved." data-tr="Bu internet sitesinin tasarımı ve kodlaması, Ilgın Nehir Günay tarafından yapıldı.<br>© -ING 2024. Tüm hakları saklıdır.">
+            Website designed and coded by Ilgın Nehir Günay.<br>
+            © -ING 2024. All rights reserved.
+        </div>
     </div>
 
     <script>
         const navRight = document.getElementById('nav-right');
 
         window.addEventListener('scroll', () => {
-            const stickyPoint = window.innerWidth <= 768 ? 120 : 240;
+            const stickyPoint = window.innerWidth <= 768 ? 120 : (window.innerWidth <= 1024 ? 180 : 240);
             if (window.scrollY >= stickyPoint) {
                 navRight.classList.add('fixed');
             } else {
                 navRight.classList.remove('fixed');
             }
         });
+
+        const aboutBtn = document.getElementById('about-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const aboutOverlay = document.getElementById('about-overlay');
+
+        if(aboutBtn && closeBtn && aboutOverlay) {
+            aboutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                aboutOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; 
+            });
+
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                aboutOverlay.classList.remove('active');
+                document.body.style.overflow = ''; 
+            });
+        }
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
@@ -397,6 +593,27 @@
             currentImageIndex = (currentImageIndex + 1) % imageSources.length;
             showLightboxImage();
         });
+
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+        const langBtn = document.getElementById('lang-btn');
+        const translatableElements = document.querySelectorAll('[data-tr]');
+
+        function applyLang() {
+            langBtn.textContent = currentLang === 'en' ? 'Türkçe' : 'English';
+            translatableElements.forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        if(langBtn) {
+            applyLang();
+            langBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentLang = currentLang === 'en' ? 'tr' : 'en';
+                localStorage.setItem('siteLang', currentLang);
+                applyLang();
+            });
+        }
     </script>
 </body>
 </html>
